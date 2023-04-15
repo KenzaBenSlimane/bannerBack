@@ -1,0 +1,53 @@
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Compagnes Tables</h1>
+       <nav>
+          <ol class="breadcrumb">
+             <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+             <li class="breadcrumb-item">Liste de Compagnes</li>
+          </ol>
+       </nav>
+    </div>
+    <section class="section">
+       <div class="row">
+          <div class="col-lg-12">
+             <div class="card">
+                <div class="card-body">
+                   <h5 class="card-title">Compagnes Table</h5>
+                   <p>Add lightweight datatables to your project.</p>
+                   <table class="table datatable">
+                      <thead>
+                         <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Modification</th>
+                            <th scope="col">Suppression</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let campagne of getPaginatedCompagnes(); let i = index">
+                           <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                           <td>{{ campagne.nom }}</td>
+                           <td>{{ campagne.description }}</td>
+                           <td>
+                              <button (click)="updateCampagne(campagne.nom, 'newName', 'newDescription')">Update</button>
+                           </td>
+                           <td>
+                              <button (click)="deleteCampagne(campagne.nom)">Supprimer</button>
+                           </td>
+                        </tr>
+                      </tbody>
+                   </table>
+                   <div class="pagination">
+                     <button [disabled]="currentPage === 1" (click)="currentPage = currentPage - 1">Précédente</button>
+                     <button *ngFor="let page of getPaginationArray()" [class.active]="currentPage === page"
+                        (click)="currentPage = page">{{ page }}</button>
+                     <button [disabled]="currentPage === getTotalPages()" (click)="currentPage = currentPage + 1">Suivante</button>
+                  </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+ </main>
